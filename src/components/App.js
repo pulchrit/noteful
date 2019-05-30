@@ -1,6 +1,9 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import Data from './data';
+import Header from "./Header";
+import Sidebar from './Sidebar';
+import MainFolderSidebar from './MainFolderSidebar';
 import '../css/App.css';
 
 class App extends React.Component {
@@ -12,37 +15,32 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <>
+        {/*  since there is no path, the Header will always be displayed. */ }
+        <Route component={<Header />} /> 
 
-        <Route
-          exact
-          path="/"
-          render={ () => 
-            <Main>
-              folders={this.state.folders}
-              notes={this.state.notes}
-            </Main>}
-        />
+        <Sidebar>
+          <Route
+              path='/' 
+              render={ (routerProps) => 
+                <MainFolderSidebar
+                  folders={this.state.folders}
+                />
+              }
+          />
+          {/* <Route 
+            path="/folder/:folderID"
+            render={ (routerProps) => 
+              <MainFolderSidebar
+                folder
+              />
 
-        <Route 
-          path="/folder/:folderID"
-          render={ () => 
-            <DynamicFolder>
-              folders={this.state.folders}
-              notes={this.state.notes}
-            </DynamicFolder>}
-        />
-
-        <Route
-          path="/note/:noteID"
-          render={ () =>
-            <DynamicNote>
-              olders={this.state.folders}
-              notes={this.state.notes}
-            </DynamicNote>}
-        />
+            }
+          /> */}
+        </Sidebar>
         
-      </div>
+
+      </>
     );
   }
 }
