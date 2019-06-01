@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import App from '../components/App';
+import NoteItem from '../components/NoteItem';
 
-describe("App component", () => {
+describe("NoteItem component", () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(
       <BrowserRouter>
-        <App />
+        <NoteItem />
       </BrowserRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
-

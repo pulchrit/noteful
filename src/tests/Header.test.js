@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import Header from "../components/Header";
 
 describe("Header component", () => {
-    it ("renders without crashing", () => {
+    it("renders without crashing", () => {
         const div = document.createElement('div');
         ReactDOM.render(
             <BrowserRouter>
