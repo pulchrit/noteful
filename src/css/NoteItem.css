@@ -1,0 +1,23 @@
+.note-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: lightgrey;
+    border-radius: 2px;
+}
+
+.date-delete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date {
+    font-size: .8em;
+    width: 60%;
+}
+
+.delete-button {
+    padding: 15px;
+    border: 1px solid black;
+
+}
