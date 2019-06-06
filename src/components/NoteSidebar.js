@@ -1,14 +1,41 @@
 import React from 'react';
+import NotefulContext from './NotefulContext';
 import "../css/NoteSidebar.css"
 
-const NoteSidebar = (props) => (
-    <nav className="nav">
-        <button type='button' className="go-back-button" onClick={props.onClickGoBack}>
-              Go back
-        </button>
+export default class NoteSidebar extends React.Component {
 
-        <h2 className="folder-name">{props.folderName}</h2>
-    </nav>
-)
+    static contextType = NotefulContext;
 
-export default NoteSidebar;
+     /*   render={ (routeProps) =>   {           
+                return (
+                  <NoteSidebar
+                    folderName={this.getFolderName(routeProps)}
+                    onClickGoBack={() => routeProps.history.goBack()}
+                  />);
+                  }
+                } */
+    
+    render() {
+
+        const getFolderName = () => {
+            const thisNote = this.context.data.notes.find(note => note.id === this.props.match.params.noteId);
+            const thisFolder = this.context.data.folders.find(folder => folder.id === thisNote.folderId);
+            return thisFolder.name;
+        }
+
+        const handleClickGoBack = () => {
+            this.props.history.goBack();
+        }
+
+
+        return (
+            <nav className="nav">
+                <button type='button' className="go-back-button" onClick={handleClickGoBack}>
+                    Go back
+                </button>
+
+                <h2 className="folder-name">{getFolderName()}</h2>
+            </nav>
+        )
+    }
+}
