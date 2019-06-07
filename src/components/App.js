@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import Header from "./Header";
 import MainFolderSidebar from './MainFolderSidebar';
@@ -13,29 +13,19 @@ import '../css/App.css';
 class App extends React.Component {
 
   state = {
-    data: {
-      folders: [],
-      notes: []
-    },
+    folders: [],
+    notes: [],
     error: null
   }
 
-
-/*   getFolderName(routeProps) {
-    const thisNote = this.state.notes.find(note => note.id === routeProps.match.params.noteId);
-    const thisFolder = this.state.folders.find(folder => folder.id === thisNote.folderId);
-    return thisFolder.name;
-  } */
-
   deleteNote = (noteId) => {
-    const newData = this.state.data.notes.filter(note => 
+    const newNotes = this.state.notes.filter(note => 
       note.id !== noteId);
-    
+
     this.setState({
-      data: newData
+        notes: newNotes
     });
 
-   
   }
 
   componentDidMount() {
@@ -58,19 +48,17 @@ class App extends React.Component {
         }
         return res.json()
       })
+  
 
     // Call each endpoint, but block the data processing (i.e., setting state) until
     // both Promises have returned successfully or been rejected. (And, actually, I think
     // Promise.all will reject as soon as one of the promises rejects.)
     Promise
       .all(endpoints.map(getFoldersNotes))
-      .then(dataArray => console.log("dataArray:", dataArray) || dataArray)
       .then(dataArray => 
           this.setState({
-            data: {
               folders: dataArray[0],
               notes: dataArray[1]
-            }
           }))
       .catch(error => this.setState({ error }))
     }
@@ -81,7 +69,8 @@ class App extends React.Component {
     // components that render within the ContextProvider will have access to this
     // updated state/context.
     const contextValue = {
-      data: this.state.data,
+      folders: this.state.folders,
+      notes: this.state.notes,
       deleteNote: this.deleteNote,
       //addFolder: this.addFolder,
       //addNote: this.addNote

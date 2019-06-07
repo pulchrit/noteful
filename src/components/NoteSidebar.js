@@ -5,21 +5,12 @@ import "../css/NoteSidebar.css"
 export default class NoteSidebar extends React.Component {
 
     static contextType = NotefulContext;
-
-     /*   render={ (routeProps) =>   {           
-                return (
-                  <NoteSidebar
-                    folderName={this.getFolderName(routeProps)}
-                    onClickGoBack={() => routeProps.history.goBack()}
-                  />);
-                  }
-                } */
     
     render() {
 
         const getFolderName = () => {
-            const thisNote = this.context.data.notes.find(note => note.id === this.props.match.params.noteId);
-            const thisFolder = this.context.data.folders.find(folder => folder.id === thisNote.folderId);
+            const thisNote = this.context.notes.find(note => note.id === this.props.match.params.noteId);
+            const thisFolder = this.context.folders.find(folder => folder.id === thisNote.folderId);
             return thisFolder.name;
         }
 

@@ -1,40 +1,40 @@
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import "../css/NoteItem.css";
 
 
-const deleteNoteRequest = (noteId, deleteNote) => {
-    fetch(`http://localhost:9090/notes/${noteId}`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-      .then(res => {
-        if (!res.ok) {
-          // get the error message from the response,
-          return res.json().then(error => {
-            // then throw it
-            throw error
-          })
-        }
-        return res.json()
-      })
-      .then(data => {
-        /* this.props.history.push('/') */
-        
-        // call the callback when the request is successful
-        // this is where the App component can remove it from state
-        deleteNote(noteId)
-        
-      })
-      .catch(error => {
-        console.error(error)
-      })
-};
+function NoteItem(props){
 
-export default function NoteItem(props) {
+    const deleteNoteRequest = (noteId, deleteNoteFunction) => {
+
+        fetch(`http://localhost:9090/notes/${noteId}`, {
+          method: 'DELETE',
+          headers: {
+            'content-type': 'application/json'
+          }
+        })
+          .then(res => {
+            if (!res.ok) {
+              // get the error message from the response,
+              return res.json().then(error => {
+                // then throw it
+                throw error
+              })
+            }
+            return res.json()
+          })
+          .then(data => {
+            // Push main route '/' onto NoteMain's history here once the 
+            // API call is successful. This will render the main page instead
+            // of trying to render a deleted note!!
+            props.history.push('/');
+            deleteNoteFunction(noteId);
+          })
+          .catch(error => {
+            console.error(error)
+          })
+    };
 
         return (
             <NotefulContext.Consumer>
@@ -50,9 +50,9 @@ export default function NoteItem(props) {
                             
                             <button
                                 className="delete-button"
-                                onClick={() => 
-                                    deleteNoteRequest(props.noteId, context.deleteNote)}
-                            >
+                                onClick={() => {
+                                    deleteNoteRequest(props.noteId, context.deleteNote)}}
+                           >
                                 Delete
                             </button>
                         </div>
@@ -62,4 +62,10 @@ export default function NoteItem(props) {
             
         );  
 }
+
+// Use withRouter because it will give us the history from NoteMain thus
+// allowing us to push('/') route back into the NoteMain page history.
+// This will render the main route '/' instead of trying to render the 
+// NoteMain page of a note that we just deleted. 
+export default withRouter(NoteItem);
 

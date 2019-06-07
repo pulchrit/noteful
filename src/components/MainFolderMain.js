@@ -10,30 +10,12 @@ export default class MainFolderMain extends React.Component {
 
     render() {
         
-       /*  function determineFolderOrMain(props) {
-            
-            // If main route, return all notes. 
-            if (props.match.path === '/') {
-                const {notes} = this.context.data;
-                return {notes};
-            } else {
-                // If folder route, return only notes for this folder.
-                const notes = this.context.data.notes.reduce((selectedNotes, currentNote) => {
-                    if (currentNote.folderId === props.match.params.folderId) {
-                    selectedNotes.push(currentNote)
-                    }
-                    return selectedNotes;
-                }, []);
-                return notes;
-            }
-        } */
-
         let notes;
 
         if (this.props.match.path === '/') {
-            notes = this.context.data.notes;
+            notes = this.context.notes;
         } else {
-            notes = this.context.data.notes.reduce((selectedNotes, currentNote) => {
+            notes = this.context.notes.reduce((selectedNotes, currentNote) => {
                 if (currentNote.folderId === this.props.match.params.folderId) {
                 selectedNotes.push(currentNote)
                 }

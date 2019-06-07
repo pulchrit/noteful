@@ -19,5 +19,6 @@
 .delete-button {
     padding: 15px;
     border: 1px solid black;
+    cursor: pointer;
 
 }

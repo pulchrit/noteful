@@ -7,10 +7,8 @@ export default class MainFolderSidebar extends React.Component {
 
     static contextType = NotefulContext;
     
-
     render() {
-        console.log(this.context);
-        const {folders} = this.context.data;
+        const {folders} = this.context;
 
         return (
             <nav className="nav">
