@@ -8,6 +8,7 @@ import MainFolderMain from './MainFolderMain';
 import NoteMain from './NoteMain';
 import AddNote from './AddNote';
 import AddFolder from './AddFolder';
+import NotefulError from './NotefulError';
 import '../css/App.css';
 
 class App extends React.Component {
@@ -15,7 +16,22 @@ class App extends React.Component {
   state = {
     folders: [],
     notes: [],
-    error: null
+    error: null,
+/*     addNote: () => {},
+    addFolder: () => {},
+    deleteNote: () => {} */
+  }
+
+  addNote = (note) => {
+    this.setState({
+      notes: [ ...this.state.notes, note ]
+    })
+  }
+
+  addFolder = (folder) => {
+    this.setState({
+      folders: [ ...this.state.folders, folder ]
+    })  
   }
 
   deleteNote = (noteId) => {
@@ -25,7 +41,6 @@ class App extends React.Component {
     this.setState({
         notes: newNotes
     });
-
   }
 
   componentDidMount() {
@@ -72,8 +87,8 @@ class App extends React.Component {
       folders: this.state.folders,
       notes: this.state.notes,
       deleteNote: this.deleteNote,
-      //addFolder: this.addFolder,
-      //addNote: this.addNote
+      addFolder: this.addFolder,
+      addNote: this.addNote
     }
 
     return (
@@ -84,53 +99,58 @@ class App extends React.Component {
           <div className="page-content">
 
             {/* Sidebar routes */ }
-            <Route
-                exact
-                path='/' 
-                component={MainFolderSidebar} 
-            />
+            <NotefulError>
+              <Route
+                  exact
+                  path='/' 
+                  component={MainFolderSidebar} 
+              />
 
-            <Route
-                path="/folder/:folderId"
-                component={MainFolderSidebar} 
-            />
+              <Route
+                  path="/folder/:folderId"
+                  component={MainFolderSidebar} 
+              />
 
-            <Route 
-              path='/notes/:noteId'
-              component={NoteSidebar}
-                
-            />
-
+              <Route 
+                path='/notes/:noteId'
+                component={NoteSidebar}
+              />
+            </NotefulError>
 
             {/* Main routes */ }
-            <Route  
-              exact
-              path='/'
-              component={MainFolderMain}    
-            />
+            <NotefulError>
+              <Route  
+                exact
+                path='/'
+                component={MainFolderMain}    
+              />
 
-            <Route 
-              path="/folder/:folderId"
-              component={MainFolderMain}
-            />
+              <Route 
+                path="/folder/:folderId"
+                component={MainFolderMain}
+              />
 
 
-            <Route 
-              path='/notes/:noteId'
-              component={NoteMain}
-            />
-
+              <Route 
+                path='/notes/:noteId'
+                component={NoteMain}
+              />
+            </NotefulError>
 
             {/*  Add note and folder routes */ }
-            <Route 
-                path='/addNote'
-                component={AddNote}
-            />
+            <NotefulError>
+              <Route 
+                  path='/addNote'
+                  component={AddNote}
+              />
+            </NotefulError>
 
-            <Route 
-                path='/addFolder'
-                component={AddFolder}
-            />
+            <NotefulError>
+              <Route 
+                  path='/addFolder'
+                  component={AddFolder}
+              />
+            </NotefulError>
           
           </div>
         </NotefulContext.Provider>

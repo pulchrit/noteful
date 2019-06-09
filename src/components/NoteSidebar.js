@@ -9,8 +9,8 @@ export default class NoteSidebar extends React.Component {
     render() {
 
         const getFolderName = () => {
-            const thisNote = this.context.notes.find(note => note.id === this.props.match.params.noteId);
-            const thisFolder = this.context.folders.find(folder => folder.id === thisNote.folderId);
+            const thisNote = this.context.notes.find(note => note.id === this.props.match.params.noteId) || '';
+            const thisFolder = this.context.folders.find(folder => folder.id === thisNote.folderId) || '';
             return thisFolder.name;
         }
 
@@ -24,7 +24,6 @@ export default class NoteSidebar extends React.Component {
                 <button type='button' className="go-back-button" onClick={handleClickGoBack}>
                     Go back
                 </button>
-
                 <h2 className="folder-name">{getFolderName()}</h2>
             </nav>
         )

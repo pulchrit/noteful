@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import NotefulContext from './NotefulContext';
+import NotefulError from './NotefulError';
+import moment from 'moment';
 import "../css/NoteItem.css";
 
 
@@ -36,30 +38,32 @@ function NoteItem(props){
           })
     };
 
-        return (
-            <NotefulContext.Consumer>
-                {(context) => (
-                    <section className="note-item">
-                        <h2 className="note-title">
-                            <Link to={`/notes/${props.noteId}`}>
-                                {props.name}
-                            </Link>
-                        </h2>
-                        <div className="date-delete">
-                            <p className="date">{`Date last modified: ${new Date(props.modified)}`}</p>
-                            
-                            <button
-                                className="delete-button"
-                                onClick={() => {
-                                    deleteNoteRequest(props.noteId, context.deleteNote)}}
-                           >
-                                Delete
-                            </button>
-                        </div>
-                    </section>
-                )}
-            </NotefulContext.Consumer>
-            
+    const dateFormatted = moment(props.modified).format('MMMM Do YYYY, h:mm:ss');
+
+    return (
+            <NotefulError>
+              <NotefulContext.Consumer>
+                  {(context) => (
+                      <section className="note-item">
+                          <h2 className="note-title">
+                              <Link to={`/notes/${props.noteId}`}>
+                                  {props.name}
+                              </Link>
+                          </h2>
+                          <div className="date-delete">
+                              <p className="date">{`Date last modified: ${dateFormatted}`}</p>
+                              <button
+                                  className="delete-button"
+                                  onClick={() => {
+                                      deleteNoteRequest(props.noteId, context.deleteNote)}}
+                              >
+                                  Delete
+                              </button>
+                          </div>
+                      </section>
+                  )}
+              </NotefulContext.Consumer>
+            </NotefulError>   
         );  
 }
 

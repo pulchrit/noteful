@@ -1,4 +1,58 @@
+.add-note-section { 
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+
+}
+
 .add-form-title {
     font-size: 1.5em;
-    color: red;
+    text-align: center;
+    color: black;
+}
+
+.add-note-error {
+    color: red,
+}
+
+.add-note-form {
+    background-color: lightgrey;
+    border-radius: 4px;
+    padding: 20px;
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.note-form-label, .note-input {
+    display: block;
+    width: 95%;
+    margin: 10px 0;
+    line-height: 2em;
+    font-size: 1em;
+}
+
+.note-input  {
+    padding: 5px;
+}
+
+.add-note-submit-button:disabled {
+    background-color: grey;
+}
+
+.add-note-submit-button {
+    padding: 15px;
+    width: 80px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1em;
 }

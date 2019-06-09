@@ -1,4 +1,63 @@
-.add-form-title {
-    font-size: 1.5em;
+
+.add-folder-section { 
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+
+}
+
+.add-folder-error {
     color: red;
 }
+
+.add-form-title {
+    font-size: 1.5em;
+    text-align: center;
+    color: black;
+}
+
+.add-folder-form {
+    background-color: lightgrey;
+    border-radius: 4px;
+    padding: 20px;
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.folder-name-label, .folder-name-input {
+    display: block;
+    width: 95%;
+    margin: 10px 0;
+    line-height: 2em;
+    font-size: 1em;
+}
+
+.folder-name-input {
+    padding: 5px;
+}
+
+.add-folder-submit-button:disabled {
+    background-color: grey;
+}
+
+.add-folder-submit-button {
+    padding: 15px;
+    width: 80px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+
+
+
