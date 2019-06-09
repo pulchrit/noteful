@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import ValidationError from './ValidationError';
 import NotefulContext from './NotefulContext';
 import uuidv4 from 'uuid/v4';
@@ -269,3 +269,19 @@ export default class AddNote extends React.Component {
         ); 
     }
 }
+
+// Validate PropTypes of context? 
+AddNote.propTypes = {
+    notes: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        modified: PropTypes.string,
+        folderId: PropTypes.string,
+        content:PropTypes.string
+    })),
+    folders: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string
+    })),
+    addNote: PropTypes.func
+};

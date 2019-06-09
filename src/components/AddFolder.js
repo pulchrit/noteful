@@ -1,8 +1,8 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
 import ValidationError from './ValidationError';
 import NotefulContext from './NotefulContext';
 import uuidv4 from 'uuid/v4';
+import PropTypes from 'prop-types';
 import "../css/AddFolder.css";
 
 export default class AddFolder extends React.Component {
@@ -159,5 +159,11 @@ export default class AddFolder extends React.Component {
     }
 }
 
-
-    
+// Validate PropTypes of context? 
+AddFolder.propTypes = {
+    addFolder: PropTypes.func,
+    folders: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string
+    }))
+}; 

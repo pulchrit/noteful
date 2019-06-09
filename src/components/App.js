@@ -17,9 +17,6 @@ class App extends React.Component {
     folders: [],
     notes: [],
     error: null,
-/*     addNote: () => {},
-    addFolder: () => {},
-    deleteNote: () => {} */
   }
 
   addNote = (note) => {

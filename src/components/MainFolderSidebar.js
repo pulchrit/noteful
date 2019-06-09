@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink, Link} from 'react-router-dom';
 import NotefulContext from "./NotefulContext";
+import PropTypes from 'prop-types';
 import "../css/MainFolderSidebar.css";
 
 export default class MainFolderSidebar extends React.Component {
@@ -33,3 +34,10 @@ export default class MainFolderSidebar extends React.Component {
     }
 }
 
+// Validate PropTypes on context? 
+MainFolderSidebar.propTypes = {
+    folders: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string
+    }))
+};

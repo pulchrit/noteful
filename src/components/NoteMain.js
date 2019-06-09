@@ -40,7 +40,7 @@ class NoteMain extends React.Component {
 export default NoteMain;
 
 // Use Proptypes to check context props?
-NoteSidebar.propTypes = {
+NoteMain.propTypes = {
     notes: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string,
         name: PropTypes.string,

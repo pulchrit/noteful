@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import "../css/NoteDetail.css";
 
 const NoteDetail = (props) => (
@@ -8,3 +9,7 @@ const NoteDetail = (props) => (
 )
 
 export default NoteDetail;
+
+NoteDetail.propTypes = {
+    content: PropTypes.string
+};

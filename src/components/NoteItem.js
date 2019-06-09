@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import NotefulError from './NotefulError';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import "../css/NoteItem.css";
 
@@ -73,3 +74,9 @@ function NoteItem(props){
 // NoteMain page of a note that we just deleted. 
 export default withRouter(NoteItem);
 
+NoteItem.propTypes = {
+  noteId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  modified: PropTypes.string.isRequired,
+  deleteNote: PropTypes.func //?? use PropTypes for context???
+}

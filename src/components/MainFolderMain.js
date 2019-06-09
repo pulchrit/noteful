@@ -3,6 +3,7 @@ import NoteItem from './NoteItem';
 import {Link} from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import NotefulError from './NotefulError';
+import PropTypes from 'prop-types';
 import "../css/MainFolderMain.css";
 
 export default class MainFolderMain extends React.Component {
@@ -45,3 +46,13 @@ export default class MainFolderMain extends React.Component {
     }
 }
 
+// Validate PropTypes on context? 
+MainFolderMain.propTypes = {
+    notes: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        modified: PropTypes.string,
+        folderId: PropTypes.string,
+        content:PropTypes.string
+    }))
+};
