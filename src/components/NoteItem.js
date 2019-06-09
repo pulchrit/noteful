@@ -68,6 +68,7 @@ function NoteItem(props){
         );  
 }
 
+
 // Use withRouter because it will give us the history from NoteMain thus
 // allowing us to push('/') route back into the NoteMain page history.
 // This will render the main route '/' instead of trying to render the 
@@ -75,8 +76,8 @@ function NoteItem(props){
 export default withRouter(NoteItem);
 
 NoteItem.propTypes = {
-  noteId: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  modified: PropTypes.string.isRequired,
+  noteId: PropTypes.string,
+  name: PropTypes.string,
+  modified: PropTypes.string,
   deleteNote: PropTypes.func //?? use PropTypes for context???
 }

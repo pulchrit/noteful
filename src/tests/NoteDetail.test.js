@@ -19,7 +19,7 @@ describe("NoteDetail component", () => {
   });
 
   it("renders the note content", () => {
-      const wrapper = shallow(<BrowserRouter><NoteDetail content={content} /></BrowserRouter>);
+      const wrapper = shallow(<NoteDetail content={content} />);
       expect(toJson(wrapper)).toMatchSnapshot();
     })
 });

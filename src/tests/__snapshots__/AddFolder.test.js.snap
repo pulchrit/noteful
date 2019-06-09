@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddFolder component renders UI as expected 1`] = `
+<section
+  className="add-folder-section"
+>
+  <h2
+    className="add-form-title"
+  >
+    Add a folder
+  </h2>
+  <div
+    className="add-folder-error"
+    role="alert"
+  />
+  <form
+    className="add-folder-form"
+    onSubmit={[Function]}
+  >
+    <label
+      className="folder-name-label"
+      htmlFor="folderName"
+    >
+      Please enter a name for your folder:
+      <input
+        className="folder-name-input"
+        id="folderName"
+        name="folderName"
+        onChange={[Function]}
+        type="text"
+      />
+      <ValidationError
+        notValid={true}
+        validationMessage=""
+      />
+    </label>
+    <button
+      className="add-folder-submit-button"
+      disabled={true}
+      type="submit"
+    >
+      Save
+    </button>
+  </form>
+</section>
+`;

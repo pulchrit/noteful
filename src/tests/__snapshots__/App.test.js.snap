@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component renders UI as expected 1`] = `
+<Fragment>
+  <Header />
+  <ContextProvider
+    value={
+      Object {
+        "addFolder": [Function],
+        "addNote": [Function],
+        "deleteNote": [Function],
+        "folders": Array [],
+        "notes": Array [],
+      }
+    }
+  >
+    <div
+      className="page-content"
+    >
+      <NotefulError>
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/"
+        />
+        <Route
+          component={[Function]}
+          path="/folder/:folderId"
+        />
+        <Route
+          component={[Function]}
+          path="/notes/:noteId"
+        />
+      </NotefulError>
+      <NotefulError>
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/"
+        />
+        <Route
+          component={[Function]}
+          path="/folder/:folderId"
+        />
+        <Route
+          component={[Function]}
+          path="/notes/:noteId"
+        />
+      </NotefulError>
+      <NotefulError>
+        <Route
+          component={[Function]}
+          path="/addNote"
+        />
+      </NotefulError>
+      <NotefulError>
+        <Route
+          component={[Function]}
+          path="/addFolder"
+        />
+      </NotefulError>
+    </div>
+  </ContextProvider>
+</Fragment>
+`;

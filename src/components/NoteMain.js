@@ -14,7 +14,6 @@ class NoteMain extends React.Component {
     render() {
         
             const note = this.context.notes.find(note => note.id === this.props.match.params.noteId);
-            console.log('note object:', note);
 
             return (
             <NotefulError>

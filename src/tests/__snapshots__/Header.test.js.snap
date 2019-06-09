@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component renders UI as expected 1`] = `
+<header
+  className="header"
+>
+  <h1>
+    <Link
+      to="/"
+    >
+      Noteful
+    </Link>
+  </h1>
+</header>
+`;

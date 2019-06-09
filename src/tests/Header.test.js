@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
+import toJson from 'enzyme-to-json';
+import {shallow} from 'enzyme';
 import Header from "../components/Header";
 
 describe("Header component", () => {
@@ -14,4 +16,9 @@ describe("Header component", () => {
         );
         ReactDOM.unmountComponentAtNode(div);
     });
+
+    it('renders UI as expected', () => {
+        const wrapper = shallow(<Header />);
+        expect(toJson(wrapper)).toMatchSnapshot();
+      });
 });
