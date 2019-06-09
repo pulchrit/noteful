@@ -3,6 +3,7 @@ import NoteItem from './NoteItem';
 import NoteDetail from './NoteDetail';
 import NotefulContext from './NotefulContext';
 import NotefulError from './NotefulError';
+import PropTypes from 'prop-types';
 import '../css/NoteMain.css';
 
 
@@ -11,11 +12,12 @@ class NoteMain extends React.Component {
     static contextType = NotefulContext;
     
     render() {
-        <NotefulError>
+        
             const note = this.context.notes.find(note => note.id === this.props.match.params.noteId);
             console.log('note object:', note);
 
             return (
+            <NotefulError>
                 <main className="main">
                     <NoteItem 
                             key={note.id}
@@ -29,10 +31,21 @@ class NoteMain extends React.Component {
                         content={note.content}
                     />
                 </main>
+            </NotefulError> 
             );
-        </NotefulError> 
+            
     } 
 }
 
 export default NoteMain;
 
+// Use Proptypes to check context props?
+NoteSidebar.propTypes = {
+    notes: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        modified: PropTypes.string,
+        folderId: PropTypes.string,
+        content:PropTypes.string
+    }))
+};
