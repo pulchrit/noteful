@@ -106,9 +106,9 @@ export default class AddNote extends React.Component {
         // Trim any inadvertent white space.
         noteContent = noteContent.trim(); 
 
-        // Ensure user has entered something for the name. 
+        // Ensure user has entered something for the content. 
         if (noteContent.length === 0) {
-            errorMessages.noteNameMessage = "Please enter some text that explains your note.";
+            errorMessages.noteContentMessage = "Please enter some text that explains your note.";
             notValid = true;
         } else {
             errorMessages = '';
@@ -131,7 +131,7 @@ export default class AddNote extends React.Component {
         let notValid = false;
 
         // Ensure user has made a folder selection. 
-        if (!noteFolderId) {
+        if (noteFolderId === '') {
             errorMessages.noteFolderIdMessage = "Please select a folder for your note.";
             notValid = true;
         } else {
