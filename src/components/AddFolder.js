@@ -29,15 +29,15 @@ export default class AddFolder extends React.Component {
         // updating immediately, and hence the new id number couldn't be immediately read out 
         // of state? 
         // I tried adding some callbacks (similar to setFormValid()), but did not meet with success.
-        this.setFolderId();
+        //this.setFolderId();
         this.setState({folderName}, () => {this.validateFolderName(folderName)});
     }
 
-    setFolderId() {
+    /* setFolderId() {
         // Generate a unique id for the new folder using uuid library.
         const folderId = uuidv4();
         this.setState({folderId});
-    }
+    } */
 
     validateFolderName(folderName) {
         // Make a copy of the validationMessages from state so that 
@@ -83,9 +83,18 @@ export default class AddFolder extends React.Component {
             addFolderFormValid: this.state.folderNameValid
         });
     }
-    
+
     handleSubmitFolder(event) {
         event.preventDefault();
+
+        const folderId = uuidv4();
+        this.setState({folderId}, this.updateAPIandContext);
+
+    }
+    
+    updateAPIandContext() {
+    //handleSubmitFolder(event) {
+        //  event.preventDefault();
 
         const folder = {
             id: this.state.folderId,

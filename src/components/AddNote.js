@@ -35,14 +35,14 @@ export default class AddNote extends React.Component {
     // handleSubmitNote(), but I was running into the issue where setState() doesn't update
     // immediately. So, I'm running functions to set noteId and noteDateModified out of this function.
     // I tried adding some callbacks (similar to setFormValid()), but did not meet with success.
-    updateNoteNameIdDateModified(noteName) {
-        this.setNoteId();
-        this.setNoteDateModified();
+    updateNoteName(noteName) {
+        //this.setNoteId();
+        //this.setNoteDateModified();
         
         this.setState({noteName}, () => {this.validateNoteName(noteName)});
     }
 
-    setNoteId() {
+   /*  setNoteId() {
         const noteId = uuidv4();
         this.setState({noteId});
     }
@@ -50,7 +50,17 @@ export default class AddNote extends React.Component {
     setNoteDateModified() {
         const noteDateModified = moment.utc();
         this.setState({noteDateModified});
-    }
+    } 
+
+    setIdAndDate() {
+        console.log("setIdAndDate ran");
+        //this.setNoteId();
+        //this.setNoteDateModified();
+        const noteId = uuidv4();
+        const noteDateModified = moment.utc();
+        this.setState({noteId, noteDateModified});
+
+    } */
     
     updateNoteContent(noteContent) {
         this.setState({noteContent}, () => {this.validateNoteContent(noteContent)});
@@ -118,7 +128,7 @@ export default class AddNote extends React.Component {
         this.setState({
             validationMessages: errorMessages,
             noteContentValid: !notValid
-        }, this.setFormValid) //setFormValid is a callback function that will be executed after entire form as been updated.
+        }, this.setFormValid) //setFormValid is a callback function that will be executed after entire form has been updated.
 
     }
 
@@ -160,7 +170,15 @@ export default class AddNote extends React.Component {
     
     handleSubmitNote(event) {
         event.preventDefault();
-
+        
+        const noteId = uuidv4();
+        const noteDateModified = moment.utc();
+        
+        this.setState({noteId, noteDateModified}, this.updateAPIandContext);
+    }
+    
+    updateAPIandContext() {
+    
         const note = {
             id: this.state.noteId,
             name: this.state.noteName,
@@ -169,7 +187,8 @@ export default class AddNote extends React.Component {
             content: this.state.noteContent
         };
 
-        this.setState({ error: null });
+
+        this.setState({error: null});
 
         fetch(`http://localhost:9090/notes`, {
           method: 'POST',
@@ -195,8 +214,8 @@ export default class AddNote extends React.Component {
                 noteConent: '',
                 noteFolderId: ''
             });
-            this.props.history.goBack(); 
             this.context.addNote(data);
+            this.props.history.push(`/notes/${note.id}`)
           })
           .catch(error => {
             this.setState({error});
@@ -219,12 +238,12 @@ export default class AddNote extends React.Component {
                 <div className='add-note-error' role='alert'>
                     {this.state.error && <p>{this.state.error.message}</p>}
                 </div>
-
+               
                 <form className='add-note-form' onSubmit={(event) => this.handleSubmitNote(event)}>
-                    <label className='note-form-label' htmlFor='noteName'>
+                     <label className='note-form-label' htmlFor='noteName'>
                         Please enter a name for your note:
                         <input type='text' name='noteName' id='noteName' className='note-input'
-                            onChange={e => this.updateNoteNameIdDateModified(e.target.value)} />
+                            onChange={e => this.updateNoteName(e.target.value)} />
                         {/* If there's an error, a message will render in a <div>. If no error
                             an empty element will render. */}
                         <ValidationError 
