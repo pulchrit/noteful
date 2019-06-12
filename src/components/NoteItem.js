@@ -9,6 +9,12 @@ import "../css/NoteItem.css";
 
 function NoteItem(props){
 
+    const determineIfRedirectIsRequired = (url) => {
+      if (url.includes('/notes/')) {
+        props.history.push('/');
+      } 
+    };
+
     const deleteNoteRequest = (noteId, deleteNoteFunction) => {
 
         fetch(`http://localhost:9090/notes/${noteId}`, {
@@ -28,10 +34,7 @@ function NoteItem(props){
             return res.json()
           })
           .then(data => {
-            // Push main route '/' onto NoteMain's history here once the 
-            // API call is successful. This will render the main page instead
-            // of trying to render a deleted note!!
-            props.history.push('/');
+            determineIfRedirectIsRequired(props.match.url);
             deleteNoteFunction(noteId);
           })
           .catch(error => {
