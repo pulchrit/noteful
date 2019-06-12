@@ -29,6 +29,9 @@ export default class AddNote extends React.Component {
             },
             error: null
         }
+        this.noteNameRef = React.createRef();
+        this.noteFolderRef = React.createRef();
+        this.noteContentRef = React.createRef();
     }
 
     
@@ -42,6 +45,10 @@ export default class AddNote extends React.Component {
     
     updateNoteFolderId(noteFolderId) {
         this.setState({noteFolderId}, () => {this.validateNoteFolderId(noteFolderId)})
+    }
+
+    passFocusOnError = (refName) => {
+        refName.current.focus();
     }
 
     validateNoteName(noteName) {
@@ -61,11 +68,13 @@ export default class AddNote extends React.Component {
 
         // Ensure user has entered something for the name. 
         if (noteName.length === 0) {
+            this.passFocusOnError(this.noteNameRef);
             errorMessages.noteNameMessage = "Please enter a note name.";
             notValid = true;
         } else if (nameTaken !== undefined) {
-                errorMessages.noteNameMessage = "This note name is already in use. Please enter a different name.";
-                notValid = true;
+            this.passFocusOnError(this.noteNameRef);
+            errorMessages.noteNameMessage = "This note name is already in use. Please enter a different name.";
+            notValid = true;
         } else {
             errorMessages = '';
             notValid = false;
@@ -91,6 +100,7 @@ export default class AddNote extends React.Component {
 
         // Ensure user has entered something for the content. 
         if (noteContent.length === 0) {
+            this.passFocusOnError(this.noteContentRef);
             errorMessages.noteContentMessage = "Please enter some text that explains your note.";
             notValid = true;
         } else {
@@ -115,6 +125,7 @@ export default class AddNote extends React.Component {
 
         // Ensure user has made a folder selection. 
         if (noteFolderId === '') {
+            this.passFocusOnError(this.noteFolderRef);
             errorMessages.noteFolderIdMessage = "Please select a folder for your note.";
             notValid = true;
         } else {
@@ -215,11 +226,20 @@ export default class AddNote extends React.Component {
                 <form className='add-note-form' onSubmit={(event) => this.handleSubmitNote(event)}>
                      <label className='note-form-label' htmlFor='noteName'>
                         Please enter a name for your note:
-                        <input type='text' name='noteName' id='noteName' className='note-input'
+                        <input 
+                            type='text' 
+                            name='noteName' 
+                            id='noteName' 
+                            aria-required='true'
+                            aria-label='Name for the new note'
+                            aria-describedby='note-name-error'
+                            ref={this.noteNameRef}
+                            className='note-input'
                             onChange={e => this.updateNoteName(e.target.value)} />
                         {/* If there's an error, a message will render in a <div>. If no error
                             an empty element will render. */}
                         <ValidationError 
+                            errorName="note-name-error"
                             notValid={!this.state.noteNameValid} 
                             validationMessage={this.state.validationMessages.noteNameMessage}
                         />
@@ -227,7 +247,13 @@ export default class AddNote extends React.Component {
 
                     <label className='note-form-label' htmlFor='noteFolderId'>
                         Please select the folder in which to store your note:
-                        <select name='noteFolderId' className='note-input'
+                        <select 
+                            name='noteFolderId' 
+                            aria-required='true'
+                            aria-label='Folder to store the new note'
+                            aria-describedby='note-folder-error'
+                            ref={this.noteFolderRef}
+                            className='note-input'
                             onChange={e => this.updateNoteFolderId(e.target.value)}>
                             <option value='' className='folder-option'>Select one</option>
                             {foldersList}
@@ -235,6 +261,7 @@ export default class AddNote extends React.Component {
                         {/* If there's an error, a message will render in a <div>. If no error
                             an empty element will render. */}
                         <ValidationError 
+                            errorName='note-folder-error'
                             notValid={!this.state.noteFolderIdValid} 
                             validationMessage={this.state.validationMessages.noteFolderIdMessage}
                         />
@@ -242,11 +269,19 @@ export default class AddNote extends React.Component {
 
                     <label className='note-form-label' htmlFor='noteContent'>
                         Please enter the content for your note:
-                        <textarea name="noteContent" id="noteContent" className='note-input'
+                        <textarea 
+                            name="noteContent" 
+                            id="noteContent" 
+                            aria-required='true'
+                            aria-label='Content for the new note'
+                            aria-describedby='note-content-error'
+                            ref={this.noteContentRef}
+                            className='note-input'
                             onChange={e => this.updateNoteContent(e.target.value)} />
                         {/* If there's an error, a message will render in a <div>. If no error
                             an empty element will render. */}
                         <ValidationError 
+                            errorName="note-content-error"
                             notValid={!this.state.noteContentValid} 
                             validationMessage={this.state.validationMessages.noteContentMessage}
                         />

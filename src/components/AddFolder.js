@@ -21,9 +21,10 @@ export default class AddFolder extends React.Component {
             },
             error: null
         }
+        this.folderNameRef = React.createRef();
     }
 
-    updateFolderNameAndId(folderName) {
+    updateFolderName(folderName) {
         this.setState({folderName}, () => {this.validateFolderName(folderName)});
     }
 
@@ -42,12 +43,18 @@ export default class AddFolder extends React.Component {
         const nameTaken = this.context.folders.find(folder => 
             folder.name === folderName);
 
+        const passFocusOnError = (refName) => {
+            refName.current.focus();
+        }
+
         // Ensure user has entered something for the name. This is sort of doubly 
         // verified because the Save button is also disabled until the user enters something.
         if (folderName.length === 0) {
+            passFocusOnError(this.folderNameRef);
             errorMessages.folderNameMessage = "Please enter a folder name.";
             notValid = true;
         } else if (nameTaken !== undefined) {
+            passFocusOnError(this.folderNameRef);
             errorMessages.folderNameMessage = "This folder name is already in use. Please enter a different name.";
             notValid = true;
         } else {
@@ -133,11 +140,20 @@ export default class AddFolder extends React.Component {
                 <form className='add-folder-form' onSubmit={(event) => this.handleSubmitFolder(event)}>
                     <label className='folder-name-label' htmlFor='folderName'>
                         Please enter a name for your folder:
-                        <input type='text' name='folderName' id='folderName' className='folder-name-input'
-                            onChange={e => this.updateFolderNameAndId(e.target.value)} />
+                        <input 
+                            type='text' 
+                            name='folderName' 
+                            id='folderName' 
+                            aria-required='true'
+                            aria-label='Name for the new folder'
+                            aria-describedby='folder-name-error'
+                            ref={this.folderNameRef}
+                            className='folder-name-input'
+                            onChange={e => this.updateFolderName(e.target.value)} />
                         {/* If there's an error, a message will render in a <div>. If no error
                             an empty element will render. */}
                         <ValidationError 
+                            errorName="folder-name-error"
                             notValid={!this.state.folderNameValid} 
                             validationMessage={this.state.validationMessages.folderNameMessage}
                         />
