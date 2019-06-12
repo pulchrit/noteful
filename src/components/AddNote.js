@@ -56,14 +56,14 @@ export default class AddNote extends React.Component {
         noteName = noteName.trim();
 
         // Determine if this note name is already in use. 
-        const nameTaken = this.context.notes.includes(note =>
+        const nameTaken = this.context.notes.find(note =>
             note.name === noteName);
 
         // Ensure user has entered something for the name. 
         if (noteName.length === 0) {
             errorMessages.noteNameMessage = "Please enter a note name.";
             notValid = true;
-        } else if (nameTaken) {
+        } else if (nameTaken !== undefined) {
                 errorMessages.noteNameMessage = "This note name is already in use. Please enter a different name.";
                 notValid = true;
         } else {

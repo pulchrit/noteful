@@ -39,7 +39,7 @@ export default class AddFolder extends React.Component {
         folderName = folderName.trim(); 
 
         // Determine if this folder name is already in use. 
-        const nameTaken = this.context.folders.includes(folder => 
+        const nameTaken = this.context.folders.find(folder => 
             folder.name === folderName);
 
         // Ensure user has entered something for the name. This is sort of doubly 
@@ -47,7 +47,7 @@ export default class AddFolder extends React.Component {
         if (folderName.length === 0) {
             errorMessages.folderNameMessage = "Please enter a folder name.";
             notValid = true;
-        } else if (nameTaken) {
+        } else if (nameTaken !== undefined) {
             errorMessages.folderNameMessage = "This folder name is already in use. Please enter a different name.";
             notValid = true;
         } else {
