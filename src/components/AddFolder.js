@@ -24,20 +24,8 @@ export default class AddFolder extends React.Component {
     }
 
     updateFolderNameAndId(folderName) {
-        // I think it makes more sense to call setFolderId() out of handleSubmitFolder(), 
-        // but I couldn't get it to work when I tried. Maybe something about setState() not
-        // updating immediately, and hence the new id number couldn't be immediately read out 
-        // of state? 
-        // I tried adding some callbacks (similar to setFormValid()), but did not meet with success.
-        //this.setFolderId();
         this.setState({folderName}, () => {this.validateFolderName(folderName)});
     }
-
-    /* setFolderId() {
-        // Generate a unique id for the new folder using uuid library.
-        const folderId = uuidv4();
-        this.setState({folderId});
-    } */
 
     validateFolderName(folderName) {
         // Make a copy of the validationMessages from state so that 
@@ -93,8 +81,6 @@ export default class AddFolder extends React.Component {
     }
     
     updateAPIandContext() {
-    //handleSubmitFolder(event) {
-        //  event.preventDefault();
 
         const folder = {
             id: this.state.folderId,
@@ -125,7 +111,6 @@ export default class AddFolder extends React.Component {
             this.setState({
                 folderName: '',
             });
-            //this.props.history.push('/');
             this.props.history.goBack();
             this.context.addFolder(data);
           })

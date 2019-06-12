@@ -31,36 +31,10 @@ export default class AddNote extends React.Component {
         }
     }
 
-    // As in the AddFolder component, I think it makes more sense to set noteId and noteDateModified in
-    // handleSubmitNote(), but I was running into the issue where setState() doesn't update
-    // immediately. So, I'm running functions to set noteId and noteDateModified out of this function.
-    // I tried adding some callbacks (similar to setFormValid()), but did not meet with success.
+    
     updateNoteName(noteName) {
-        //this.setNoteId();
-        //this.setNoteDateModified();
-        
         this.setState({noteName}, () => {this.validateNoteName(noteName)});
     }
-
-   /*  setNoteId() {
-        const noteId = uuidv4();
-        this.setState({noteId});
-    }
-
-    setNoteDateModified() {
-        const noteDateModified = moment.utc();
-        this.setState({noteDateModified});
-    } 
-
-    setIdAndDate() {
-        console.log("setIdAndDate ran");
-        //this.setNoteId();
-        //this.setNoteDateModified();
-        const noteId = uuidv4();
-        const noteDateModified = moment.utc();
-        this.setState({noteId, noteDateModified});
-
-    } */
     
     updateNoteContent(noteContent) {
         this.setState({noteContent}, () => {this.validateNoteContent(noteContent)});
@@ -69,7 +43,6 @@ export default class AddNote extends React.Component {
     updateNoteFolderId(noteFolderId) {
         this.setState({noteFolderId}, () => {this.validateNoteFolderId(noteFolderId)})
     }
-
 
     validateNoteName(noteName) {
         // Make a copy of the validationMessages from state so that 
@@ -152,7 +125,7 @@ export default class AddNote extends React.Component {
         this.setState({
             validationMessages: errorMessages,
             noteFolderIdValid: !notValid
-        }, this.setFormValid) //setFormValid is a callback function that will be executed after entire form as been updated.
+        }, this.setFormValid) //setFormValid is a callback function that will be executed after entire form has been updated.
 
     }
 
