@@ -19,6 +19,8 @@ class App extends React.Component {
     error: null,
   }
 
+ 
+
   addNote = (note) => {
     this.setState({
       notes: [ ...this.state.notes, note ]
@@ -31,6 +33,7 @@ class App extends React.Component {
     })  
   }
 
+  // udpates context and state
   deleteNote = (noteId) => {
     const newNotes = this.state.notes.filter(note => 
       note.id !== noteId);
@@ -43,7 +46,7 @@ class App extends React.Component {
   componentDidMount() {
 
     // Attribution for Promise.all and getFoldersNotes function: https://tinyurl.com/y42df8dz
-    const endpoints = ["http://localhost:9090/folders", "http://localhost:9090/notes"];
+    const endpoints = ["http://localhost:8000/api/folders", "http://localhost:8000/api/notes"];
 
     // Promise.all will call this function and fetch the data for each endpoint (folder and
     // notes). It should return the folers/notes as a json object or return an error if the 

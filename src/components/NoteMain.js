@@ -3,17 +3,28 @@ import NoteItem from './NoteItem';
 import NoteDetail from './NoteDetail';
 import NotefulContext from './NotefulContext';
 import NotefulError from './NotefulError';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import '../css/NoteMain.css';
 
 
 class NoteMain extends React.Component {
 
     static contextType = NotefulContext;
+
+    
     
     render() {
+        //console.log('notes from NoteMain:', this.context.notes);
         
-            const note = this.context.notes.find(note => note.id === this.props.match.params.noteId);
+
+           /*  const noteTest = this.context.notes.find(note => {
+                console.log('NoteMain, note.id:', note.id);
+                console.log('NoteMain, this.props.match.params.noteId', this.props.match.params.noteId);
+
+            }); */
+
+            const note = this.context.notes.find(note => note.id === Number.parseInt(this.props.match.params.noteId));
+
 
             return (
             <NotefulError>
@@ -21,9 +32,9 @@ class NoteMain extends React.Component {
                     <NoteItem 
                             key={note.id}
                             noteId={note.id}
-                            name={note.name}
-                            modified={note.modified}
-                            folderId={note.folderId} 
+                            name={note.note_name}
+                            modified={note.date_modified}
+                            folderId={note.folder_id} 
                     />
 
                     <NoteDetail 
@@ -38,13 +49,4 @@ class NoteMain extends React.Component {
 
 export default NoteMain;
 
-// Use Proptypes to check context props?
-NoteMain.propTypes = {
-    notes: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        modified: PropTypes.string,
-        folderId: PropTypes.string,
-        content:PropTypes.string
-    }))
-};
+

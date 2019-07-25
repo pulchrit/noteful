@@ -3,7 +3,7 @@ import NoteItem from './NoteItem';
 import {Link} from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import NotefulError from './NotefulError';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import "../css/MainFolderMain.css";
 
 export default class MainFolderMain extends React.Component {
@@ -17,12 +17,7 @@ export default class MainFolderMain extends React.Component {
         if (this.props.match.path === '/') {
             notes = this.context.notes;
         } else {
-            notes = this.context.notes.reduce((selectedNotes, currentNote) => {
-                if (currentNote.folderId === this.props.match.params.folderId) {
-                selectedNotes.push(currentNote)
-                }
-                return selectedNotes;
-            }, []);
+            notes = this.context.notes.filter(note => note.folder_id === Number.parseInt(this.props.match.params.folderId));
         }
         
         return (
@@ -33,9 +28,9 @@ export default class MainFolderMain extends React.Component {
                         <NoteItem 
                             key={note.id}
                             noteId={note.id}
-                            name={note.name}
-                            modified={note.modified}
-                            folderId={note.folderId}
+                            name={note.note_name}
+                            modified={note.date_modified}
+                            folderId={note.folder_id}
                         />
                     )}
 
@@ -46,13 +41,3 @@ export default class MainFolderMain extends React.Component {
     }
 }
 
-// Validate PropTypes on context? 
-MainFolderMain.propTypes = {
-    notes: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        modified: PropTypes.string,
-        folderId: PropTypes.string,
-        content:PropTypes.string
-    }))
-};

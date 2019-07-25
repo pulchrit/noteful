@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import ValidationError from './ValidationError';
 import NotefulContext from './NotefulContext';
-import uuidv4 from 'uuid/v4';
-import moment from 'moment';
+//import uuidv4 from 'uuid/v4';
+//import moment from 'moment';
 import "../css/AddNote.css";
 
 export default class AddNote extends React.Component {
@@ -13,10 +13,11 @@ export default class AddNote extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            noteId: '',
+            //noteId: '',
             noteName: '',
-            noteDateModified: '',
-            noteFolderId: '',
+            //noteDateModified: '',
+            //noteFolderId: '',
+            noteFolderId: null,
             noteContent: '',
             noteNameValid: false,
             noteContentValid: false,
@@ -64,7 +65,7 @@ export default class AddNote extends React.Component {
 
         // Determine if this note name is already in use. 
         const nameTaken = this.context.notes.find(note =>
-            note.name === noteName);
+            note.note_name === noteName);
 
         // Ensure user has entered something for the name. 
         if (noteName.length === 0) {
@@ -151,30 +152,34 @@ export default class AddNote extends React.Component {
                                 && this.state.noteFolderIdValid
         });
     }
-    
+
+    redirectToNoteDetailAfterAdd = (note) => {
+        this.props.history.push(`/notes/${note.id}`)
+    }
+     
     handleSubmitNote(event) {
         event.preventDefault();
         
-        const noteId = uuidv4();
+        /* const noteId = uuidv4();
         const noteDateModified = moment.utc();
         
         this.setState({noteId, noteDateModified}, this.updateAPIandContext);
     }
     
-    updateAPIandContext() {
+    updateAPIandContext() { */
     
         const note = {
-            id: this.state.noteId,
-            name: this.state.noteName,
-            modified: this.state.noteDateModified,
-            folderId: this.state.noteFolderId,
+            //id: this.state.noteId,
+            note_name: this.state.noteName,
+            //date_modified: this.state.noteDateModified,
+            folder_id: this.state.noteFolderId,
             content: this.state.noteContent
         };
 
 
         this.setState({error: null});
 
-        fetch(`http://localhost:9090/notes`, {
+        fetch(`http://localhost:8000/api/notes`, {
           method: 'POST',
           body: JSON.stringify(note),
           headers: {
@@ -195,11 +200,11 @@ export default class AddNote extends React.Component {
             // reset form
             this.setState({
                 noteName: '',
-                noteConent: '',
+                noteContent: '',
                 noteFolderId: ''
             });
             this.context.addNote(data);
-            this.props.history.push(`/notes/${note.id}`)
+            this.redirectToNoteDetailAfterAdd(data);
           })
           .catch(error => {
             this.setState({error});
@@ -211,7 +216,7 @@ export default class AddNote extends React.Component {
 
         // Generate list of folders for <select> element of form.
         const foldersList = this.context.folders.map(folder => 
-            <option key={folder.id} className='folder-option' value={folder.id}>{folder.name}</option>
+            <option key={folder.id} className='folder-option' value={folder.id}>{folder.folder_name}</option>
             );
 
         return (
@@ -297,18 +302,3 @@ export default class AddNote extends React.Component {
     }
 }
 
-// Validate PropTypes of context? 
-AddNote.propTypes = {
-    notes: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        modified: PropTypes.string,
-        folderId: PropTypes.string,
-        content:PropTypes.string
-    })),
-    folders: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string
-    })),
-    addNote: PropTypes.func
-};

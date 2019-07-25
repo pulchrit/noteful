@@ -17,7 +17,7 @@ function NoteItem(props){
 
     const deleteNoteRequest = (noteId, deleteNoteFunction) => {
 
-        fetch(`http://localhost:9090/notes/${noteId}`, {
+        fetch(`http://localhost:8000/api/notes/${noteId}`, {
           method: 'DELETE',
           headers: {
             'content-type': 'application/json'
@@ -25,17 +25,22 @@ function NoteItem(props){
         })
           .then(res => {
             if (!res.ok) {
-              // get the error message from the response,
-              return res.json().then(error => {
-                // then throw it
+              // get the error message from the response
+              // No need to process the response to JSON here.
+              // So just return res error.
+              return res.then(error => {
                 throw error
               })
             }
-            return res.json()
+            // Don't need to process the response to JSON because the
+            // response is a 204 success with NO content...so there isn't any
+            // content to turn into JSON.
+            return res
+            //return res.json()
           })
           .then(data => {
             determineIfRedirectIsRequired(props.match.url);
-            deleteNoteFunction(noteId);
+            deleteNoteFunction(noteId); // removes the note from context and state
           })
           .catch(error => {
             console.error(error)
@@ -79,7 +84,7 @@ function NoteItem(props){
 export default withRouter(NoteItem);
 
 NoteItem.propTypes = {
-  noteId: PropTypes.string,
+  noteId: PropTypes.number,
   name: PropTypes.string,
   modified: PropTypes.string,
   deleteNote: PropTypes.func //?? use PropTypes for context???

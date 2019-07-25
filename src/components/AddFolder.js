@@ -1,8 +1,8 @@
 import React from 'react';
 import ValidationError from './ValidationError';
 import NotefulContext from './NotefulContext';
-import uuidv4 from 'uuid/v4';
-import PropTypes from 'prop-types';
+//import uuidv4 from 'uuid/v4';
+//import PropTypes from 'prop-types';
 import "../css/AddFolder.css";
 
 export default class AddFolder extends React.Component {
@@ -12,7 +12,7 @@ export default class AddFolder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            folderId: '',
+            //folderId: '',
             folderName: '',
             folderNameValid: false,
             addFolderFormValid: false,
@@ -41,7 +41,7 @@ export default class AddFolder extends React.Component {
 
         // Determine if this folder name is already in use. 
         const nameTaken = this.context.folders.find(folder => 
-            folder.name === folderName);
+            folder.folder_name === folderName);
 
         const passFocusOnError = (refName) => {
             refName.current.focus();
@@ -82,21 +82,22 @@ export default class AddFolder extends React.Component {
     handleSubmitFolder(event) {
         event.preventDefault();
 
-        const folderId = uuidv4();
-        this.setState({folderId}, this.updateAPIandContext);
+        // TAKE THIS apart. WE don't need uuid... so handle
+        //const folderId = uuidv4();
+        //this.setState({folderId}, this.updateAPIandContext);
 
-    }
+    //}
     
-    updateAPIandContext() {
+    //updateAPIandContext() {
 
         const folder = {
-            id: this.state.folderId,
-            name: this.state.folderName
+            //id: this.state.folderId,
+            folder_name: this.state.folderName
         };
 
         this.setState({ error: null });
 
-        fetch(`http://localhost:9090/folders`, {
+        fetch(`http://localhost:8000/api/folders`, {
           method: 'POST',
           body: JSON.stringify(folder),
           headers: {
@@ -169,11 +170,3 @@ export default class AddFolder extends React.Component {
     }
 }
 
-// Validate PropTypes of context? 
-AddFolder.propTypes = {
-    addFolder: PropTypes.func,
-    folders: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string
-    }))
-}; 
