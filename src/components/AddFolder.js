@@ -97,7 +97,7 @@ export default class AddFolder extends React.Component {
 
         this.setState({ error: null });
 
-        fetch(`http://localhost:8000/api/folders`, {
+        fetch(`https://mysterious-citadel-85217.herokuapp.com/api/folders`, {
           method: 'POST',
           body: JSON.stringify(folder),
           headers: {

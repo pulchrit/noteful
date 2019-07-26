@@ -17,7 +17,7 @@ function NoteItem(props){
 
     const deleteNoteRequest = (noteId, deleteNoteFunction) => {
 
-        fetch(`http://localhost:8000/api/notes/${noteId}`, {
+        fetch(`https://mysterious-citadel-85217.herokuapp.com/api/notes/${noteId}`, {
           method: 'DELETE',
           headers: {
             'content-type': 'application/json'

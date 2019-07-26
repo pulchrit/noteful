@@ -179,7 +179,7 @@ export default class AddNote extends React.Component {
 
         this.setState({error: null});
 
-        fetch(`http://localhost:8000/api/notes`, {
+        fetch(`https://mysterious-citadel-85217.herokuapp.com/api/notes`, {
           method: 'POST',
           body: JSON.stringify(note),
           headers: {

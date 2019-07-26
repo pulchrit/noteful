@@ -46,7 +46,7 @@ class App extends React.Component {
   componentDidMount() {
 
     // Attribution for Promise.all and getFoldersNotes function: https://tinyurl.com/y42df8dz
-    const endpoints = ["http://localhost:8000/api/folders", "http://localhost:8000/api/notes"];
+    const endpoints = ["https://mysterious-citadel-85217.herokuapp.com/api/folders", "https://mysterious-citadel-85217.herokuapp.com/api/notes"];
 
     // Promise.all will call this function and fetch the data for each endpoint (folder and
     // notes). It should return the folers/notes as a json object or return an error if the 
