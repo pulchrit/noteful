@@ -35,7 +35,7 @@ const context = {
   };
   
 
-describe("MainFolderSidebar component", () => {
+/* describe("MainFolderSidebar component", () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(
@@ -51,3 +51,4 @@ describe("MainFolderSidebar component", () => {
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 });
+ */

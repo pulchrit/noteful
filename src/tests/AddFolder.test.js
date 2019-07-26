@@ -5,7 +5,7 @@ import toJson from 'enzyme-to-json';
 import {shallow} from 'enzyme';
 import AddFolder from '../components/AddFolder';
 
-describe("AddFolder component", () => {
+/* describe("AddFolder component", () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(
@@ -19,4 +19,4 @@ describe("AddFolder component", () => {
     const wrapper = shallow(<AddFolder />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
-});
+}); */

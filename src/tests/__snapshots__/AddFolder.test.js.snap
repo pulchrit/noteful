@@ -23,6 +23,9 @@ exports[`AddFolder component renders UI as expected 1`] = `
     >
       Please enter a name for your folder:
       <input
+        aria-describedby="folder-name-error"
+        aria-label="Name for the new folder"
+        aria-required="true"
         className="folder-name-input"
         id="folderName"
         name="folderName"
@@ -30,6 +33,7 @@ exports[`AddFolder component renders UI as expected 1`] = `
         type="text"
       />
       <ValidationError
+        errorName="folder-name-error"
         notValid={true}
         validationMessage=""
       />

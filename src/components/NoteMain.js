@@ -14,14 +14,6 @@ class NoteMain extends React.Component {
     
     
     render() {
-        //console.log('notes from NoteMain:', this.context.notes);
-        
-
-           /*  const noteTest = this.context.notes.find(note => {
-                console.log('NoteMain, note.id:', note.id);
-                console.log('NoteMain, this.props.match.params.noteId', this.props.match.params.noteId);
-
-            }); */
 
             const note = this.context.notes.find(note => note.id === Number.parseInt(this.props.match.params.noteId));
 
